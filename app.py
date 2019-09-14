@@ -12,7 +12,7 @@ app = Flask(__name__)
 # create mongo connection
 client = pymongo.MongoClient()
 db = client.mars_db
-collection = db.mars_data_entries
+collection = db.mars_info
 
 @app.route("/")
 def home():

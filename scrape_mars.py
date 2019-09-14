@@ -50,7 +50,7 @@ def scrape_mars_news():
 
 
 ###JPL Mars Space Images - Featured Image
-def scarpe_img():
+def scrape_img():
     try:
         browser = init_browser()
         the_url2 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
