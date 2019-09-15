@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-
 from bs4 import BeautifulSoup
 import urllib.request
 from splinter import Browser
@@ -37,13 +33,13 @@ def scrape_mars_news():
         #find element
         news_title = soup.find('div', class_='content_title').find('a').text
         news_p = soup.find('div', class_='article_teaser_body').text
-        
+
         #add to mars dict
         mars_info['news_title'] = news_title
         mars_info['news_paragraph']= news_p
-        
+
         return mars_info
-    
+
     finally:
         #quit browser
         browser.quit()
@@ -62,7 +58,7 @@ def scrape_img():
         base_url = 'https://www.jpl.nasa.gov'
         featured_img_url = base_url + img_url
         mars_info['featured_img_url'] = featured_img_url
-        
+
         return mars_info
     finally:
         #quit browser
@@ -77,17 +73,17 @@ def scrape_mars_weather():
         html_weather = browser.html
         soup = BeautifulSoup(html_weather, 'html.parser')
         latest_tweets = soup.find_all('div', class_='js-tweet-text-container')
-        
-        for tweet in latest_tweets: 
+
+        for tweet in latest_tweets:
             weather_tweet = tweet.find('p').text
             if 'Sol' and 'pressure' in weather_tweet:
                 print(weather_tweet)
                 break
-            else: 
+            else:
                 pass
 
         mars_info['weather_tweet'] = weather_tweet
-        
+
         return mars_info
     finally:
         #quit browser
@@ -95,20 +91,20 @@ def scrape_mars_weather():
 
 ###Mars Facts
 def scrape_facts():
-    
-        url = 'https://space-facts.com/mars/'
-        table_facts = pd.read_html(url)
-        table_facts
-        facts_url = 'http://space-facts.com/mars/'
-        mars_facts = pd.read_html(facts_url)
-        mars_df = mars_facts[1]
-        mars_df.columns = ['Description','Value']
-        mars_df.set_index('Description', inplace=True)
-        mars_df
-        mars_table = mars_df.to_html('mars_table.html')
-        mars_info['mars_facts'] = mars_table
-        
-        return mars_info
+
+    url = 'https://space-facts.com/mars/'
+    table_facts = pd.read_html(url)
+    table_facts
+    facts_url = 'http://space-facts.com/mars/'
+    mars_facts = pd.read_html(facts_url)
+    mars_df = mars_facts[1]
+    mars_df.columns = ['Description','Value']
+    mars_df.set_index('Description', inplace=True)
+    mars_df
+    mars_table = mars_df.to_html('mars_table.html')
+    mars_info['mars_facts'] = mars_table
+
+    return mars_info
 
 ###Mars Hemispheres
 def scrape_hemis():
@@ -122,8 +118,7 @@ def scrape_hemis():
         hemisphere_image_urls = []
         base_url = 'https://astrogeology.usgs.gov'
 
-        for i in items: 
-
+        for i in items:
             title = i.find('h3').text
             img_url = i.find('a', class_='itemLink product-item')['href']
             browser.visit(base_url + img_url)
@@ -132,8 +127,9 @@ def scrape_hemis():
             img_url = base_url + soup.find('img', class_='wide-image')['src']
             hemisphere_image_urls.append({"title" : title, "img_url" : img_url})
             mars_info['hemisphere_img_urls'] = hemisphere_image_urls
-            
-            return mars_info
+        
+        return mars_info
+    
     finally:
-            #quit browser
-            browser.quit()
+        #quit browser
+        browser.quit()
