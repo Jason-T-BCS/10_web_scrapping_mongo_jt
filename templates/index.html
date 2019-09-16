@@ -32,7 +32,7 @@
                 <!-- Left Image-->
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <h3>Featured Mars Image</h3>
-                    <img src="{{ mars_info.featured_image_url }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
+                    <img src="{{ mars_info.featured_img_url }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
                 </div>
 
                 <!-- Weather  -->
@@ -49,7 +49,7 @@
                     <br>
                     <h3>Mars Facts</h3>
                     <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 65px;">
-                        {{ mars_info.mars_facts}}
+                        {{ mars_info.mars_facts | safe}}
                     </div>
                 </div>
             </div>
@@ -64,9 +64,9 @@
                     {% for item in mars_info.hemispehere_img_urls %}
                     <div class="col-md-6">
                         <div class="card text-white bg-dark" style="margin: 30px;">
-                            <img class="card-img-top" src="{{ items.img_url }}" />
+                            <img class="card-img-top" src="{{ item.img_url }}" />
                             <div class="card-body">
-                                <p class="card-text">{{ items.title }}</p>
+                                <p class="card-text">{{ item.title }}</p>
                             </div>
                         </div>
                     </div>

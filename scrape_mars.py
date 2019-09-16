@@ -92,17 +92,13 @@ def scrape_mars_weather():
 ###Mars Facts
 def scrape_facts():
 
-    url = 'https://space-facts.com/mars/'
-    table_facts = pd.read_html(url)
-    table_facts
     facts_url = 'http://space-facts.com/mars/'
     mars_facts = pd.read_html(facts_url)
     mars_df = mars_facts[1]
     mars_df.columns = ['Description','Value']
     mars_df.set_index('Description', inplace=True)
-    mars_df
-    mars_table = mars_df.to_html('mars_table.html')
-    mars_info['mars_facts'] = mars_table
+    mars_data = mars_df.to_html()
+    mars_info['mars_facts'] = mars_data
 
     return mars_info
 
@@ -127,9 +123,8 @@ def scrape_hemis():
             img_url = base_url + soup.find('img', class_='wide-image')['src']
             hemisphere_image_urls.append({"title" : title, "img_url" : img_url})
             mars_info['hemisphere_img_urls'] = hemisphere_image_urls
-        
+            
         return mars_info
-    
     finally:
         #quit browser
         browser.quit()
