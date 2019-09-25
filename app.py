@@ -17,13 +17,14 @@ def home():
 @app.route("/scrape")
 def scrape():
     mars_info = mongo.db.mars_info
+    mars_info = scrape_mars.scrape()
     mars_data = scrape_mars.scrape_mars_news()
-    mars_data = scrape_mars.scrape_img()
+    mars_data = scrape_mars.scrape_mars_image()
+    mars_data = scrape_mars.scrape_mars_facts()
     mars_data = scrape_mars.scrape_mars_weather()
-    mars_data = scrape_mars.scrape_facts()
-    mars_data = scrape_mars.scrape_hemis()
+    mars_data = scrape_mars.scrape_mars_hemispheres()
     mars_info.update({}, mars_data, upsert=True)
-
+    
     return redirect("/")
 
 if __name__ == "__main__":
